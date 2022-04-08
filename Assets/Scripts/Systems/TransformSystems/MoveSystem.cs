@@ -22,13 +22,16 @@ public sealed class MoveSystem : IExecuteSystem
             if (moveDir != Vector3.zero)
             {
                 var direction = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
-                var lerpDirection = MathHelper.LerpForAtan2(e.direction.Value, direction, Time.deltaTime * 5);
+                var lerpDirection = MathHelper.LerpForAtan2(e.direction.Value, direction, Time.deltaTime * 10);
                 e.ReplaceDirection(lerpDirection);
                 e.isMoving = true;
+                e.isIdling = false;
+                e.isAttacking = false;
             }
             else
             {
                 e.isMoving = false;
+                e.isIdling = true;
             }
         }
     }

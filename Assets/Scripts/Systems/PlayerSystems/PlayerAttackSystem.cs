@@ -13,11 +13,12 @@ public sealed class PlayerAttackSystem : IExecuteSystem
 
     public PlayerAttackSystem(Contexts contexts)
     {
-        _player = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Position, GameMatcher.Damage, GameMatcher.AttackRate, GameMatcher.AttackRange));
+        _player = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Position, GameMatcher.Damage, GameMatcher.AttackRate, GameMatcher.AttackRange, GameMatcher.Direction));
         _zombies = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Zombie, GameMatcher.Position, GameMatcher.Health, GameMatcher.View));
         _inRangeHostiles = new List<GameEntity>(50);
     }
 
+    // Make system reactive, add HostileInRange component
     public void Execute()
     {
         _inRangeHostiles.Clear();
@@ -55,13 +56,19 @@ public sealed class PlayerAttackSystem : IExecuteSystem
 
                 if (closestInRangeHostile != null)
                 {
-                    e.isAttacking = true;
+                    var attackDirection = closestInRangeHostile.position.Value - e.position.Value;
+                    var direction = Mathf.Atan2(attackDirection.x, attackDirection.z) * Mathf.Rad2Deg;
+                    e.ReplaceDirection(direction);
+
                     closestInRangeHostile.ReplaceHealth(closestInRangeHostile.health.Value - e.damage.Value);
                     Debug.Log($"Attacking zombie {closestInRangeHostile.view.Value.name}");
                     _prevAttackTime = Time.time;
+                    e.isAttacking = true;
+                    e.isIdling = false;
                 }
                 else
                 {
+                    e.isIdling = true;
                     e.isAttacking = false;
                 }
             }

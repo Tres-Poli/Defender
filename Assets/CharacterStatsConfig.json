@@ -9,7 +9,7 @@
 	},
 	{
 		"Type":1,
-		"Health":2,
+		"Health":20,
 		"Damage":1,
 		"AttackRate":1,
 		"AttackRange":1,

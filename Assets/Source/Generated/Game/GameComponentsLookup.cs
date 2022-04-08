@@ -56,6 +56,7 @@ public static class GameComponentsLookup {
         typeof(DamageComponent),
         typeof(DirectionComponent),
         typeof(HealthComponent),
+        typeof(IdlingComponent),
         typeof(InitialPositionComponent),
         typeof(MoveComponent),
         typeof(MovingComponent),
