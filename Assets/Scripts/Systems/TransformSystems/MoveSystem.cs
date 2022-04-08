@@ -24,6 +24,11 @@ public sealed class MoveSystem : IExecuteSystem
                 var direction = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
                 var lerpDirection = MathHelper.LerpForAtan2(e.direction.Value, direction, Time.deltaTime * 5);
                 e.ReplaceDirection(lerpDirection);
+                e.isMoving = true;
+            }
+            else
+            {
+                e.isMoving = false;
             }
         }
     }

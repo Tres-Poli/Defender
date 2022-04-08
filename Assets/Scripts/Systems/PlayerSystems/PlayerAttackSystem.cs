@@ -13,7 +13,7 @@ public sealed class PlayerAttackSystem : IExecuteSystem
 
     public PlayerAttackSystem(Contexts contexts)
     {
-        _player = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Position, GameMatcher.Move, GameMatcher.Damage, GameMatcher.AttackRate, GameMatcher.AttackRange));
+        _player = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Player, GameMatcher.Position, GameMatcher.Damage, GameMatcher.AttackRate, GameMatcher.AttackRange));
         _zombies = contexts.game.GetGroup(GameMatcher.AllOf(GameMatcher.Zombie, GameMatcher.Position, GameMatcher.Health, GameMatcher.View));
         _inRangeHostiles = new List<GameEntity>(50);
     }
@@ -24,7 +24,7 @@ public sealed class PlayerAttackSystem : IExecuteSystem
 
         foreach (var e in _player.GetEntities())
         {
-            if (e.move.Value == Vector3.zero && Time.time - e.attackRate.Value >= _prevAttackTime)
+            if (!e.isMoving && Time.time - e.attackRate.Value >= _prevAttackTime)
             {
                 var hostiles = _zombies.GetEntities();
                 GameEntity closestInRangeHostile = null;
@@ -55,9 +55,14 @@ public sealed class PlayerAttackSystem : IExecuteSystem
 
                 if (closestInRangeHostile != null)
                 {
+                    e.isAttacking = true;
                     closestInRangeHostile.ReplaceHealth(closestInRangeHostile.health.Value - e.damage.Value);
                     Debug.Log($"Attacking zombie {closestInRangeHostile.view.Value.name}");
                     _prevAttackTime = Time.time;
+                }
+                else
+                {
+                    e.isAttacking = false;
                 }
             }
         }
