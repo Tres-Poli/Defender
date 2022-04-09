@@ -24,7 +24,16 @@ public sealed class AnimationAttackSystem : ReactiveSystem<GameEntity>
         foreach (var e in entities)
         {
             var animator = e.view.Value.GetComponent<Animator>();
-            animator.SetBool("Attack", true);
+
+            if (animator.GetBool("Attack"))
+            {
+                animator.SetTrigger("AttackAgain");
+            }
+            else
+            {
+                animator.SetBool("Attack", true);
+            }
+
             animator.SetBool("Move", false);
             animator.SetBool("Idle", false);
         }

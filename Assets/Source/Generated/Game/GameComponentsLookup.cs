@@ -8,27 +8,30 @@
 //------------------------------------------------------------------------------
 public static class GameComponentsLookup {
 
-    public const int Attacking = 0;
-    public const int AttackRange = 1;
-    public const int AttackRate = 2;
-    public const int Camera = 3;
-    public const int Damage = 4;
-    public const int Direction = 5;
-    public const int Health = 6;
-    public const int Idling = 7;
-    public const int InitialPosition = 8;
-    public const int Move = 9;
-    public const int Moving = 10;
-    public const int Player = 11;
-    public const int Position = 12;
-    public const int Prefab = 13;
-    public const int Speed = 14;
-    public const int View = 15;
-    public const int Zombie = 16;
+    public const int AnimationObserver = 0;
+    public const int Attacking = 1;
+    public const int AttackRange = 2;
+    public const int AttackRate = 3;
+    public const int Camera = 4;
+    public const int Damage = 5;
+    public const int Direction = 6;
+    public const int Health = 7;
+    public const int Idling = 8;
+    public const int InitialPosition = 9;
+    public const int Move = 10;
+    public const int Moving = 11;
+    public const int Player = 12;
+    public const int Position = 13;
+    public const int Prefab = 14;
+    public const int Speed = 15;
+    public const int Target = 16;
+    public const int View = 17;
+    public const int Zombie = 18;
 
-    public const int TotalComponents = 17;
+    public const int TotalComponents = 19;
 
     public static readonly string[] componentNames = {
+        "AnimationObserver",
         "Attacking",
         "AttackRange",
         "AttackRate",
@@ -44,11 +47,13 @@ public static class GameComponentsLookup {
         "Position",
         "Prefab",
         "Speed",
+        "Target",
         "View",
         "Zombie"
     };
 
     public static readonly System.Type[] componentTypes = {
+        typeof(AnimationObserverComponent),
         typeof(AttackingComponent),
         typeof(AttackRangeComponent),
         typeof(AttackRateComponent),
@@ -64,6 +69,7 @@ public static class GameComponentsLookup {
         typeof(PositionComponent),
         typeof(PrefabComponent),
         typeof(SpeedComponent),
+        typeof(TargetComponent),
         typeof(ViewComponent),
         typeof(ZombieComponent)
     };

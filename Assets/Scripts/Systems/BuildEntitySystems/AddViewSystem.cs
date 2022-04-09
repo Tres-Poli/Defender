@@ -19,7 +19,7 @@ public sealed class AddViewSystem : ReactiveSystem<GameEntity>
 
     protected override bool Filter(GameEntity entity)
     {
-        return !entity.hasView;
+        return !entity.hasView && !entity.hasAnimationObserver;
     }
 
     protected override void Execute(List<GameEntity> entities)
@@ -28,6 +28,13 @@ public sealed class AddViewSystem : ReactiveSystem<GameEntity>
         {
             var go = Object.Instantiate(Resources.Load<GameObject>(e.prefab.PrefabName));
             go.transform.SetParent(_gameViewRoot, false);
+            var animObs = go.GetComponent<AnimationObserver>();
+            if (animObs != null)
+            {
+                e.AddAnimationObserver(animObs);
+                animObs.Init(e);
+            }
+
             if (e.hasInitialPosition && e.hasPosition)
             {
                 e.ReplacePosition(e.initialPosition.Value);

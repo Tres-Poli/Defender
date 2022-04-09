@@ -1,5 +1,5 @@
 {
 	"StartZombieCount":10,
-	"ZombieSpawnRate":0.5,
+	"ZombieSpawnRate":2,
 	"ZombieCountProgressionFactor":1.5
 }

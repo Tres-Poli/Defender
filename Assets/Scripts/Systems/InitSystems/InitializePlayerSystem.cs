@@ -31,6 +31,7 @@ public sealed class InitializePlayerSystem : IInitializeSystem
         e.AddMove(Vector3.zero);
         e.AddSpeed(_playerConfig.Speed);
         e.AddDirection(0);
+        e.AddTarget(null);
 
         GameController.Player = e;
     }

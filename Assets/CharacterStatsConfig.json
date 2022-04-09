@@ -3,13 +3,13 @@
 		"Type":0,
 		"Health":10,
 		"Damage":1,
-		"AttackRate":0.5,
-		"AttackRange":5,
+		"AttackRate":4,
+		"AttackRange":6,
 		"Speed":5
 	},
 	{
 		"Type":1,
-		"Health":20,
+		"Health":2,
 		"Damage":1,
 		"AttackRate":1,
 		"AttackRange":1,
